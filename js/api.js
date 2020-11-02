@@ -216,22 +216,33 @@ function getStaredTeams() {
 
     var teamsHTML = "";
     teams.forEach(function (team) {
-      teamsHTML += `
-          <tr>
-            <td><img src="${team.crestUrl.replace(
-              /^http:\/\//i,
-              "https://"
-            )}" width="30px" alt="badge"/></td>
-            <td>${team.name}</td>
-            <td>${team.won}</td>
-            <td>
-            <a 
-            href="./team.html?id=${team.id}&saved=true"
-            class="waves-effect waves-light blue btn">
-            More
-            </a>
-            </td>
-          </tr>
+      teamsHTML += `            
+            <div class="divider"></div>
+              <br>
+                  <div class="card-image center">
+                      <img src="${team.crestUrl.replace(
+                        /^http:\/\//i,
+                        "https://"
+                      )}" width="250px" alt="badge"/>
+                        <h3>${team.name}</h3>
+                  </div>
+                  <div class="section">
+                      <div class="card-content">
+                          <p>Founded in ${team.founded}</p>
+                          <p>Club Color: ${team.clubColors}</p>
+                          <p>Venue: ${team.venue}</p>
+                      </div>
+                  </div>
+                  <div class="card-action">
+                      <a 
+                      href="./team.html?id=${team.id}&saved=true"
+                      class="waves-effect waves-light blue btn">
+                      More
+                      </a>
+                  </div>
+                  <br>
+            </div>
+              
       `;
     });
     document.getElementById("body-content").innerHTML = teamsHTML;

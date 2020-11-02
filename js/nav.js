@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (page === "") page = "standing";
   if (page === "squad") page = "squad";
   if (page === "team") page = "team";
+  if (page === "stared") page = "stared";
   loadPage(page);
 
   function loadPage(page) {

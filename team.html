@@ -28,8 +28,11 @@
     </nav>
     <div class="container" id="body-content"></div>
     <div class="fixed-action-btn">
-      <a class="btn-floating btn-large red" id="save">
+      <a class="btn-floating btn-large green" id="save">
         <i class="large material-icons">save</i>
+      </a>
+      <a class="btn-floating btn-large red" id="delete">
+        <i class="large material-icons">delete</i>
       </a>
     </div>
     <script
@@ -61,11 +64,15 @@
         var urlParams = new URLSearchParams(window.location.search);
         var isFromStared = urlParams.get("stared");
         var btnSave = document.getElementById("save");
+        var btnDelete = document.getElementById("delete");
 
         if (isFromStared) {
-          btnSave.style.display = "none";
+          btnSave.style.display = "block";
+          btnDelete.style.display = "none";
           getStaredTeamById();
         } else {
+          btnSave.style.display = "none";
+          btnDelete.style.display = "block";
           var item = getTeamById();
         }
 
@@ -73,6 +80,16 @@
           console.log("Save button clicked!");
           item.then((team) => {
             saveStarTeam(team);
+          });
+        };
+        const identyTeam = new URLSearchParams(window.location.search).get(
+          "id"
+        );
+        btnDelete.onclick = function () {
+          console.log("Delete button clicked!");
+          item.then((team) => {
+            DeleteStarTeam(parseInt(identyTeam));
+            getStaredTeams();
           });
         };
       });

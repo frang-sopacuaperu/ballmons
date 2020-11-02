@@ -32,3 +32,17 @@ function getAll() {
       });
   });
 }
+
+const DeleteStarTeam = (team) => {
+  dbPromised
+    .then(function (db) {
+      var tx = db.transaction("teams", "readwrite");
+      var store = tx.objectStore("teams");
+      console.log(team);
+      store.delete(team);
+      return tx.complete;
+    })
+    .then(function () {
+      console.log("Your Star Team Deleted!");
+    });
+};
