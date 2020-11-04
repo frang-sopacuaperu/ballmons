@@ -1,7 +1,8 @@
-const CACHE_NAME = "ballMons-v2.4";
+const CACHE_NAME = "ballMons-v2.5";
 var urlsToCache = [
   "/",
   "/manifest.json",
+  "/push.js",
   "https://fonts.googleapis.com/icon?family=Material+Icons",
   "https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2",
   "/nav.html",
@@ -11,14 +12,17 @@ var urlsToCache = [
   "/pages/standing.html",
   "/pages/stared.html",
   "/css/materialize.min.css",
-  "/images/favicon.png",
+  "/images/ballmons-192px-andro.png",
+  "/images/ballmons-192px-ios.png",
+  "/images/ballmons-521px.png",
   "/images/chelsea_bg.jpg",
+  "/images/favicon.png",
   "/js/api.js",
   "/js/db.js",
   "/js/idb.js",
-  "/js/loading.js",
   "/js/materialize.min.js",
   "/js/nav.js",
+  "/js/sw-register.js",
 ];
 
 self.addEventListener("install", function (event) {
@@ -65,4 +69,25 @@ self.addEventListener("fetch", function (event) {
         })
     );
   }
+});
+
+self.addEventListener("push", function (event) {
+  var body;
+  if (event.data) {
+    body = event.data.text();
+  } else {
+    body = "Push message no payload";
+  }
+  var options = {
+    body: body,
+    icon: "img/notification.png",
+    vibrate: [100, 50, 100],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: 1,
+    },
+  };
+  event.waitUntil(
+    self.registration.showNotification("Push Notification", options)
+  );
 });

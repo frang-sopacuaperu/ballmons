@@ -7,7 +7,7 @@ var dbPromised = idb.open("ballmons", 1, function (upgradeDb) {
 
 function saveStarTeam(team) {
   dbPromised
-    .then(function (db) {
+    .then((db) => {
       var tx = db.transaction("teams", "readwrite");
       var store = tx.objectStore("teams");
       console.log(team);
@@ -20,14 +20,14 @@ function saveStarTeam(team) {
 }
 
 function getAll() {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     dbPromised
-      .then(function (db) {
+      .then((db) => {
         var tx = db.transaction("teams", "readonly");
         var store = tx.objectStore("teams");
         return store.getAll();
       })
-      .then(function (teams) {
+      .then((teams) => {
         resolve(teams);
       });
   });
@@ -35,7 +35,7 @@ function getAll() {
 
 const DeleteStarTeam = (team) => {
   dbPromised
-    .then(function (db) {
+    .then((db) => {
       var tx = db.transaction("teams", "readwrite");
       var store = tx.objectStore("teams");
       console.log(team);

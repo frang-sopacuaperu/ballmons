@@ -1,6 +1,7 @@
 {
   "name": "BallMons App",
   "short_name": "Ballmons",
+  "gcm_sender_id": "716718986488",
   "description": "Football information app",
   "theme_color": "#0779e4",
   "background_color": "#070d59",

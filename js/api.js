@@ -54,9 +54,9 @@ const fetchAPI = (url) => {
 function getAllStandings() {
   showLoading();
   if ("caches" in window) {
-    caches.match(ENDPOINT_COMPETITION).then(function (response) {
+    caches.match(ENDPOINT_COMPETITION).then((response) => {
       if (response) {
-        response.json().then(function (data) {
+        response.json().then((data) => {
           console.log("Competition Data: " + data);
           showStanding(data);
         });
@@ -78,7 +78,7 @@ function showStanding(data) {
   let standings = "";
   let standingElement = document.getElementById("homeStandings");
 
-  data.standings[0].table.forEach(function (standing) {
+  data.standings[0].table.forEach((standing) => {
     standings += `
                 <tr>
                     <td><img src="${standing.team.crestUrl.replace(
@@ -121,9 +121,9 @@ function showStanding(data) {
 
 function getAllSquad() {
   if ("caches" in window) {
-    caches.match(TEAM_SQUAD).then(function (response) {
+    caches.match(TEAM_SQUAD).then((response) => {
       if (response) {
-        response.json().then(function (data) {
+        response.json().then((data) => {
           console.log("Squad Data: " + data);
           showSquad(data);
         });
@@ -181,14 +181,14 @@ function showSquad(data) {
 }
 
 function getTeamById() {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     var urlParams = new URLSearchParams(window.location.search);
     var idParam = urlParams.get("id");
-
+    let teamHTML = "";
     if ("caches" in window) {
-      caches.match(`${BASE_URL}teams/${idParam}`).then(function (response) {
+      caches.match(`${BASE_URL}teams/${idParam}`).then((response) => {
         if (response) {
-          response.json().then(function (data) {
+          response.json().then((data) => {
             document.getElementById("body-content").innerHTML = teamHTML;
             resolve(data);
           });
@@ -235,11 +235,11 @@ function getTeamById() {
 }
 
 function getStaredTeams() {
-  getAll().then(function (teams) {
+  getAll().then((teams) => {
     console.log(teams);
 
     var teamsHTML = "";
-    teams.forEach(function (team) {
+    teams.forEach((team) => {
       teamsHTML += `            
             <div class="divider"></div>
               <br>
@@ -278,12 +278,11 @@ function getStaredTeamById() {
   var idParam = urlParams.get("id");
 
   getById(idParam).then((team) => {
-    teamHTML = "";
     let teamHTML = `
           <div class="card col s12 m6">
           <div class="card-content">
             <img
-              src="${team.crestUrl}"
+              src="${team.crestUrl.replace(/^http:\/\//i, "https://")}"
               alt="Team Logo"
               class="responsive-img center-block"
               width="350"
@@ -292,7 +291,9 @@ function getStaredTeamById() {
             <h3 class="header center blue-text">${team.name}</h3>
             <div class="center-align">
               <p><span class="flow-text">Founded in ${team.founded}</span></p>
-              <p><span class="flow-text">Club Color: ${team.clubColors}</span></p>
+              <p><span class="flow-text">Club Color: ${
+                team.clubColors
+              }</span></p>
               <p><span class="flow-text">Venue: ${team.venue}</span></p>
               <p><span class="flow-text">Email: ${team.email}</span></p>
               <p><span class="flow-text">Address: ${team.address}</span></p>
