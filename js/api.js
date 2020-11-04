@@ -8,6 +8,29 @@ const ENDPOINT_COMPETITION = `${BASE_URL}competitions/${LEAGUE_ID}/standings`;
 const TEAM_ID = 61;
 const TEAM_SQUAD = `${BASE_URL}teams/${TEAM_ID}`;
 
+function showLoading() {
+  const content = document.getElementById("body-content");
+  content.innerHTML = "";
+  const html = `
+            <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div><div class="gap-patch">
+                  <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+        `;
+  document.getElementById("loader").innerHTML = html;
+}
+
+function hideLoading() {
+  document.getElementById("loader").innerHTML = "";
+}
+
 const fetchAPI = (url) => {
   return fetch(url, {
     headers: {
@@ -29,6 +52,7 @@ const fetchAPI = (url) => {
 };
 
 function getAllStandings() {
+  showLoading();
   if ("caches" in window) {
     caches.match(ENDPOINT_COMPETITION).then(function (response) {
       if (response) {
@@ -37,6 +61,7 @@ function getAllStandings() {
           showStanding(data);
         });
       }
+      hideLoading();
     });
   }
 
@@ -170,7 +195,6 @@ function getTeamById() {
         }
       });
     }
-
     fetchAPI(`${BASE_URL}teams/${idParam}`)
       .then(status)
       .then(function (data) {
@@ -235,7 +259,7 @@ function getStaredTeams() {
                   </div>
                   <div class="card-action">
                       <a 
-                      href="./team.html?id=${team.id}&saved=true"
+                      href="./team.html?id=${team.id}&stared=true"
                       class="waves-effect waves-light blue btn">
                       More
                       </a>

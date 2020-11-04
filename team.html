@@ -65,15 +65,15 @@
         var isFromStared = urlParams.get("stared");
         var btnSave = document.getElementById("save");
         var btnDelete = document.getElementById("delete");
+        var item = getTeamById();
 
         if (isFromStared) {
-          btnSave.style.display = "block";
-          btnDelete.style.display = "none";
-          getStaredTeamById();
-        } else {
           btnSave.style.display = "none";
           btnDelete.style.display = "block";
-          var item = getTeamById();
+          getStaredTeamById();
+        } else {
+          btnSave.style.display = "block";
+          btnDelete.style.display = "none";
         }
 
         btnSave.onclick = function () {
