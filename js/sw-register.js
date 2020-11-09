@@ -8,14 +8,13 @@ function urlBase64ToUint8Array(base64String) {
   }
   return outputArray;
 }
-// Periksa service worker
 if (!("serviceWorker" in navigator)) {
   console.log("Service worker tidak didukung browser ini.");
 } else {
-  registerServiceWorker();
-  requestPermission();
+  registerServiceWorker().then(() => {
+    requestPermission();
+  });
 }
-// Register service worker
 function registerServiceWorker() {
   return navigator.serviceWorker
     .register("/service-worker.js")

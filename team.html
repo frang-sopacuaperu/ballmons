@@ -89,7 +89,7 @@
         );
         btnDelete.onclick = function () {
           console.log("Delete button clicked!");
-          item.then((team) => {
+          item.then(() => {
             DeleteStarTeam(parseInt(identyTeam));
             getStaredTeams();
           });

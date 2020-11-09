@@ -181,7 +181,7 @@ function showSquad(data) {
 }
 
 function getTeamById() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     var urlParams = new URLSearchParams(window.location.search);
     var idParam = urlParams.get("id");
     let teamHTML = "";
@@ -314,7 +314,7 @@ function getStaredTeamById() {
 }
 
 function getById(id) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     dbPromised
       .then((db) => {
         var tx = db.transaction("teams", "readonly");

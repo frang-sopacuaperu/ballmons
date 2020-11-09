@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-  var elems = document.querySelectorAll(".sidenav");
+  const elems = document.querySelectorAll(".sidenav");
   M.Sidenav.init(elems);
   loadNav();
 
   function loadNav() {
-    var xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState === 4) {
         if (this.status != 200) return;
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
           .querySelectorAll(".sidenav a, .topnav a")
           .forEach(function (elm) {
             elm.addEventListener("click", function (event) {
-              var sidenav = document.querySelector(".sidenav");
+              let sidenav = document.querySelector(".sidenav");
               M.Sidenav.getInstance(sidenav).close();
               page = event.target.getAttribute("href").substr(1);
               loadPage(page);
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Load page content
-  var page = window.location.hash.substr(1);
+  const page = window.location.hash.substr(1);
   if (page === "") page = "standing";
   if (page === "squad") page = "squad";
   if (page === "team") page = "team";
@@ -36,10 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
   loadPage(page);
 
   function loadPage(page) {
-    var xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState === 4) {
-        var content = document.querySelector("#body-content");
+        const content = document.querySelector("#body-content");
 
         if (page === "standing") {
           getAllStandings();
